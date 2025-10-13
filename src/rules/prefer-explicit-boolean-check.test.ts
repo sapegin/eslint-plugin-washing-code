@@ -1,6 +1,6 @@
 import { RuleTester } from '@typescript-eslint/rule-tester';
 import path from 'node:path';
-import rule from './prefer-explicit-boolean-check.js';
+import { rule } from './prefer-explicit-boolean-check.js';
 
 const ruleTester = new RuleTester({
   languageOptions: {

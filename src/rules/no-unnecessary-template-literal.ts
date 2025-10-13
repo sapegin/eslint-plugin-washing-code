@@ -1,12 +1,6 @@
 import { ESLintUtils, TSESTree } from '@typescript-eslint/utils';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sapegin/eslint-plugin-washing-code/blob/main/docs/rules/${name}.md`
-);
-
-export default createRule({
-  name: 'no-unnecessary-template-literal',
+export const rule: ESLintUtils.RuleModule<'unnecessaryTemplate'> = {
   meta: {
     type: 'suggestion',
     docs: {
@@ -44,4 +38,4 @@ export default createRule({
       },
     };
   },
-});
+};

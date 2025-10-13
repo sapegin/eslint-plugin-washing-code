@@ -14,7 +14,15 @@ npm install --save-dev eslint-plugin-washing-code
 
 ## Usage
 
-Add `washing-code` to your ESLint configuration:
+Use the recommended configuration:
+
+```js
+import washingCode from 'eslint-plugin-washing-code';
+
+export default [washingCode.configs.recommended];
+```
+
+Or configure individual rules:
 
 ```js
 import washingCode from 'eslint-plugin-washing-code';
@@ -25,7 +33,8 @@ export default [
       'washing-code': washingCode
     },
     rules: {
-      'washing-code/no-unnecessary-template-literal': 'error'
+      'washing-code/no-unnecessary-template-literal': 'error',
+      'washing-code/prefer-explicit-boolean-check': 'error'
     }
   }
 ];
@@ -33,9 +42,13 @@ export default [
 
 ## Rules
 
-| Rule | Description | Fixable |
-| --- | --- | --- |
-| [no-unnecessary-template-literal](docs/rules/no-unnecessary-template-literal.md) | Disallow template literals without interpolation | ✅ |
+✅ Set in the `recommended` configuration\
+🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).\
+
+| Rule | Description | Recommended | Fixable |
+| --- | --- | --- | --- |
+| [no-unnecessary-template-literal](docs/rules/no-unnecessary-template-literal.md) | Disallow template literals without interpolation | ✅ | 🔧 |
+| [prefer-explicit-boolean-check](docs/rules/prefer-explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
 
 ## Motivation
 

@@ -1,5 +1,7 @@
 # no-unnecessary-template-literal
 
+✅ Recommended; 🔧 Autofixable
+
 Disallow template literals without interpolation.
 
 ## Rule Details

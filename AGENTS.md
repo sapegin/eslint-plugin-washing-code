@@ -68,13 +68,15 @@ if (!hasTypeInfo) {
 - Configuration options (if any)
 - Prerequisites (e.g., TypeScript project configuration)
 - Behavior differences with/without type information
+- Never use title case, always use sentence case
 
 ## Project Structure
 
 - `src/rules/` - Rule implementations
 - `src/rules/*.test.ts` - Rule tests (co-located with implementation)
+- `src/rules/index.ts` - Barrel export that registers all rules with their names
 - `docs/rules/` - Rule documentation
-- `src/index.ts` - Plugin entry point (exports all rules)
+- `src/index.ts` - Plugin entry point (injects docs URLs and exports plugin)
 
 ## Testing Setup
 
@@ -88,6 +90,15 @@ Tests use Vitest with the `@typescript-eslint/rule-tester`:
 
 - Use TypeScript for all source files
 - Follow existing code style (enforced by ESLint and Prettier)
-- Export rules as default exports
-- Use `createRule` from `@typescript-eslint/utils`
+- Export rules as default exports from individual rule files
+- Register rules in `src/rules/index.ts` with their kebab-case names
+- Documentation URLs are automatically generated in `src/index.ts` based on rule names
 - Message IDs should be descriptive and use camelCase
+
+## Adding a New Rule
+
+1. Create rule file in `src/rules/your-rule-name.ts` and export as default
+2. Create test file `src/rules/your-rule-name.test.ts`
+3. Add rule to `src/rules/index.ts` with its kebab-case name
+4. Create documentation in `docs/rules/your-rule-name.md`
+5. The rule will be automatically available in the plugin with docs URL injected

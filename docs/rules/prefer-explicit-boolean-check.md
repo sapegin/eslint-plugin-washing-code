@@ -1,5 +1,7 @@
 # prefer-explicit-boolean-check
 
+✅ Recommended; 🔧 Autofixable
+
 Require explicit comparison instead of negation operator.
 
 ## Rule Details

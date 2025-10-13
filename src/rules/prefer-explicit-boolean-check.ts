@@ -1,113 +1,6 @@
 import { ESLintUtils, TSESTree } from '@typescript-eslint/utils';
 import * as ts from 'typescript';
 
-const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://github.com/sapegin/eslint-plugin-washing-code/blob/main/docs/rules/${name}.md`
-);
-
-export default createRule({
-  name: 'prefer-explicit-boolean-check',
-  meta: {
-    type: 'suggestion',
-    docs: {
-      description: 'Require explicit comparison instead of negation operator',
-    },
-    fixable: 'code',
-    schema: [],
-    messages: {
-      preferExplicitCheck:
-        'Use explicit comparison ({{ comparison }}) instead of negation operator.',
-      preferExplicitCheckNoFix:
-        'Prefer explicit comparison instead of negation operator.',
-    },
-  },
-  defaultOptions: [],
-  create(context) {
-    const services = ESLintUtils.getParserServices(
-      context,
-      /* allowWithoutFullTypeInformation */ true
-    );
-    const hasTypeInfo = services.program !== null;
-    const checker = hasTypeInfo ? services.program.getTypeChecker() : null;
-
-    return {
-      UnaryExpression(node: TSESTree.UnaryExpression) {
-        if (node.operator !== '!' || node.prefix === false) {
-          return;
-        }
-
-        // Skip double negation (!!x) - it's explicit coercion
-        if (
-          node.parent?.type === 'UnaryExpression' &&
-          node.parent.operator === '!'
-        ) {
-          return;
-        }
-
-        // Skip if this is the inner negation of a double negation
-        if (
-          node.argument.type === 'UnaryExpression' &&
-          node.argument.operator === '!'
-        ) {
-          return;
-        }
-
-        // Without type info, just warn without autofix
-        if (!hasTypeInfo || !checker) {
-          context.report({
-            node,
-            messageId: 'preferExplicitCheckNoFix',
-          });
-          return;
-        }
-
-        const tsNode = services.esTreeNodeToTSNodeMap.get(node.argument);
-        // TypeScript knows checker is not null here due to the guard above
-        let type = checker.getTypeAtLocation(tsNode);
-
-        // For identifiers, try to get the declared type from the symbol
-        // This handles cases like `const value: string | null = "hello"`
-        if (ts.isIdentifier(tsNode)) {
-          const symbol = checker.getSymbolAtLocation(tsNode);
-          if (symbol && symbol.valueDeclaration) {
-            const declaredType = checker.getTypeOfSymbolAtLocation(
-              symbol,
-              symbol.valueDeclaration
-            );
-            if (declaredType) {
-              type = declaredType;
-            }
-          }
-        }
-
-        const comparison = getExplicitComparison(type);
-
-        if (!comparison) {
-          return;
-        }
-
-        context.report({
-          node,
-          messageId: 'preferExplicitCheck',
-          data: {
-            comparison,
-          },
-          fix(fixer) {
-            const sourceCode = context.sourceCode;
-            const argumentText = sourceCode.getText(node.argument);
-            const needsParens = needsParentheses(node.argument);
-
-            const operand = needsParens ? `(${argumentText})` : argumentText;
-
-            return fixer.replaceText(node, `${operand} ${comparison}`);
-          },
-        });
-      },
-    };
-  },
-});
-
 function getExplicitComparison(type: ts.Type): string | null {
   // Handle union types
   if (type.isUnion()) {
@@ -206,3 +99,106 @@ function needsParentheses(node: TSESTree.Expression): boolean {
     node.type === 'SequenceExpression'
   );
 }
+
+export const rule: ESLintUtils.RuleModule<
+  'preferExplicitCheck' | 'preferExplicitCheckNoFix'
+> = {
+  meta: {
+    type: 'suggestion',
+    docs: {
+      description: 'Require explicit comparison instead of negation operator',
+    },
+    fixable: 'code',
+    schema: [],
+    messages: {
+      preferExplicitCheck:
+        'Use explicit comparison ({{ comparison }}) instead of negation operator.',
+      preferExplicitCheckNoFix:
+        'Prefer explicit comparison instead of negation operator.',
+    },
+  },
+  defaultOptions: [],
+  create(context) {
+    const services = ESLintUtils.getParserServices(
+      context,
+      /* allowWithoutFullTypeInformation */ true
+    );
+    const hasTypeInfo = services.program !== null;
+    const checker = hasTypeInfo ? services.program.getTypeChecker() : null;
+
+    return {
+      UnaryExpression(node: TSESTree.UnaryExpression) {
+        if (node.operator !== '!' || node.prefix === false) {
+          return;
+        }
+
+        // Skip double negation (!!x) - it's explicit coercion
+        if (
+          node.parent?.type === 'UnaryExpression' &&
+          node.parent.operator === '!'
+        ) {
+          return;
+        }
+
+        // Skip if this is the inner negation of a double negation
+        if (
+          node.argument.type === 'UnaryExpression' &&
+          node.argument.operator === '!'
+        ) {
+          return;
+        }
+
+        // Without type info, just warn without autofix
+        if (!hasTypeInfo || !checker) {
+          context.report({
+            node,
+            messageId: 'preferExplicitCheckNoFix',
+          });
+          return;
+        }
+
+        const tsNode = services.esTreeNodeToTSNodeMap.get(node.argument);
+        // TypeScript knows checker is not null here due to the guard above
+        let type = checker.getTypeAtLocation(tsNode);
+
+        // For identifiers, try to get the declared type from the symbol
+        // This handles cases like `const value: string | null = "hello"`
+        if (ts.isIdentifier(tsNode)) {
+          const symbol = checker.getSymbolAtLocation(tsNode);
+          if (symbol && symbol.valueDeclaration) {
+            const declaredType = checker.getTypeOfSymbolAtLocation(
+              symbol,
+              symbol.valueDeclaration
+            );
+            if (declaredType) {
+              type = declaredType;
+            }
+          }
+        }
+
+        const comparison = getExplicitComparison(type);
+
+        if (!comparison) {
+          return;
+        }
+
+        context.report({
+          node,
+          messageId: 'preferExplicitCheck',
+          data: {
+            comparison,
+          },
+          fix(fixer) {
+            const sourceCode = context.sourceCode;
+            const argumentText = sourceCode.getText(node.argument);
+            const needsParens = needsParentheses(node.argument);
+
+            const operand = needsParens ? `(${argumentText})` : argumentText;
+
+            return fixer.replaceText(node, `${operand} ${comparison}`);
+          },
+        });
+      },
+    };
+  },
+};

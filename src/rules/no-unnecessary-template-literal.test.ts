@@ -1,5 +1,5 @@
 import { RuleTester } from '@typescript-eslint/rule-tester';
-import rule from './no-unnecessary-template-literal.js';
+import { rule } from './no-unnecessary-template-literal.js';
 
 const ruleTester = new RuleTester();
 
