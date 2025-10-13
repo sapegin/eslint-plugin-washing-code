@@ -24,12 +24,12 @@ function getExplicitComparison(type: ts.Type): string | null {
     }
 
     // Optional types: Something | null -> check for null
-    if (hasNull && hasOtherTypes && !hasUndefined) {
+    if (hasNull && hasOtherTypes && hasUndefined === false) {
       return '!== null';
     }
 
     // Optional types: Something | undefined -> check for undefined
-    if (hasUndefined && hasOtherTypes && !hasNull) {
+    if (hasUndefined && hasOtherTypes && hasNull === false) {
       return '!== undefined';
     }
 
@@ -119,12 +119,22 @@ export const rule: ESLintUtils.RuleModule<
   },
   defaultOptions: [],
   create(context) {
-    const services = ESLintUtils.getParserServices(
-      context,
-      /* allowWithoutFullTypeInformation */ true
-    );
-    const hasTypeInfo = services.program !== null;
-    const checker = hasTypeInfo ? services.program.getTypeChecker() : null;
+    let services;
+    try {
+      services = ESLintUtils.getParserServices(
+        context,
+        /* allowWithoutFullTypeInformation */ true
+      );
+    } catch {
+      // Parser services not available, run without type information
+      services = null;
+    }
+
+    const hasTypeInfo = services?.program !== null;
+    const checker =
+      hasTypeInfo && services && services.program
+        ? services.program.getTypeChecker()
+        : null;
 
     return {
       UnaryExpression(node: TSESTree.UnaryExpression) {
@@ -149,7 +159,7 @@ export const rule: ESLintUtils.RuleModule<
         }
 
         // Without type info, just warn without autofix
-        if (!hasTypeInfo || !checker) {
+        if (hasTypeInfo === false || checker === null || services === null) {
           context.report({
             node,
             messageId: 'preferExplicitCheckNoFix',
@@ -178,7 +188,7 @@ export const rule: ESLintUtils.RuleModule<
 
         const comparison = getExplicitComparison(type);
 
-        if (!comparison) {
+        if (comparison === null) {
           return;
         }
 
