@@ -153,6 +153,30 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
         'const value: string | null | undefined = "hello"; if (value == null) {}',
       name: 'optional type with null and undefined',
     },
+    {
+      code: 'const value: string | number | null = "hello"; if (!value) {}',
+      errors: [
+        {
+          messageId: 'preferExplicitCheck',
+          data: { comparison: '=== null' },
+        },
+      ],
+      output:
+        'const value: string | number | null = "hello"; if (value === null) {}',
+      name: 'multiple types with null',
+    },
+    {
+      code: 'const value: string | boolean | undefined = "hello"; if (!value) {}',
+      errors: [
+        {
+          messageId: 'preferExplicitCheck',
+          data: { comparison: '=== undefined' },
+        },
+      ],
+      output:
+        'const value: string | boolean | undefined = "hello"; if (value === undefined) {}',
+      name: 'multiple types with undefined',
+    },
   ],
 });
 

@@ -23,23 +23,20 @@ function getExplicitComparison(type: ts.Type): string | null {
       }
     }
 
-    // Optional types: Something | null -> check for null
+    // If union contains null/undefined, prioritize checking for them
+    // Regardless of how many other types are in the union
     if (hasNull && hasOtherTypes && hasUndefined === false) {
       return '=== null';
     }
-
-    // Optional types: Something | undefined -> check for undefined
     if (hasUndefined && hasOtherTypes && hasNull === false) {
       return '=== undefined';
     }
-
-    // Optional types: Something | null | undefined -> check for null OR undefined
-    // We use == null which checks both null and undefined
     if (hasNull && hasUndefined && hasOtherTypes) {
       return '== null';
     }
 
     // Only auto-fix if all union members have the same comparison
+    // TODO: What the fuck is "have the same comparison"?!
     if (comparisons.size === 1) {
       return Array.from(comparisons)[0];
     }
