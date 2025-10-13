@@ -1,0 +1,54 @@
+{
+  "name": "eslint-plugin-washing-code",
+  "description": "ESLint rules inspired by Washing your code book",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "npm run test:vitest",
+    "posttest": "npm run format",
+    "lint": "eslint . --cache --fix",
+    "test:vitest": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc -p tsconfig.build.json",
+    "format": "prettier --write \"**/*.{js,mjc,cjs,ts,tsx,json,jsonc,md}\"",
+    "prepublish": "npm run build",
+    "prepare": "husky"
+  },
+  "homepage": "https://sapegin.me/book/",
+  "author": {
+    "name": "Artem Sapegin",
+    "url": "https://sapegin.me/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapegin/eslint-plugin-washing-code.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sapegin/eslint-plugin-washing-code/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": "./out/index.js",
+  "types": "./out/index.d.ts",
+  "files": [
+    "out"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@types/node": "^24.7.1",
+    "eslint": "^9.37.0",
+    "eslint-config-tamia": "^9.4.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.4",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9",
+    "vitest": "^3.2.4"
+  },
+  "lint-staged": {
+    "*.{js,mjc,cjs,ts,tsx}": "eslint --cache --fix",
+    "*.{js,mjc,cjs,ts,tsx,json,jsonc,md}": "prettier --write"
+  }
+}
