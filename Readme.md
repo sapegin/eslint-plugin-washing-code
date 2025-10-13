@@ -33,7 +33,6 @@ export default [
       'washing-code': washingCode
     },
     rules: {
-      'washing-code/no-unnecessary-template-literal': 'error',
       'washing-code/prefer-explicit-boolean-check': 'error'
     }
   }
@@ -47,7 +46,6 @@ export default [
 
 | Rule | Description | Recommended | Fixable |
 | --- | --- | --- | --- |
-| [no-unnecessary-template-literal](docs/rules/no-unnecessary-template-literal.md) | Disallow template literals without interpolation | ✅ | 🔧 |
 | [prefer-explicit-boolean-check](docs/rules/prefer-explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
 
 ## Motivation

@@ -33,7 +33,6 @@ const plugin = {
         'washing-code': {} as ESLint.Plugin,
       },
       rules: {
-        'washing-code/no-unnecessary-template-literal': 'error',
         'washing-code/prefer-explicit-boolean-check': 'error',
       },
     },

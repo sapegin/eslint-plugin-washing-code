@@ -13,11 +13,6 @@ const config = [
   },
   washingCode.configs.recommended,
   {
-    rules: {
-      'washing-code/no-unnecessary-template-literal': 'off',
-    },
-  },
-  {
     ignores: ['out/'],
   },
 ];
