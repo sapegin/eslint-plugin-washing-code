@@ -4,6 +4,8 @@
 
 ESLint rules inspired by [Washing your code book](https://sapegin.me/book/).
 
+**Warning: this rule is highly experimental, use at your own risk!**
+
 [![Washing your code. A book on clean code for frontend developers](https://sapegin.me/images/washing-code-github.jpg)](https://sapegin.me/book/)
 
 ## Installation
