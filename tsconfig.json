@@ -3,11 +3,10 @@
     "module": "nodenext",
     "target": "es2015",
     "lib": ["ES2023", "DOM"],
-    "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "test", "*.config.ts"]
 }
