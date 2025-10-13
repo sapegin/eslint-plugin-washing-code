@@ -29,10 +29,10 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
       code: 'const num = 42; if (num === 0) {}',
     },
     {
-      code: 'const val = null; if (val !== null) {}',
+      code: 'const val = null; if (val === null) {}',
     },
     {
-      code: 'const val = undefined; if (val !== undefined) {}',
+      code: 'const val = undefined; if (val === undefined) {}',
     },
     {
       code: 'const yep = true; const nope = !!yep;',
@@ -42,11 +42,11 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
       code: 'const obj = { active: true }; if (obj.active === false) {}',
     },
     {
-      code: 'const value: string | null = null; if (value !== null) {}',
+      code: 'const value: string | null = null; if (value === null) {}',
       name: 'optional type with null',
     },
     {
-      code: 'const value: string | undefined = undefined; if (value !== undefined) {}',
+      code: 'const value: string | undefined = undefined; if (value === undefined) {}',
       name: 'optional type with undefined',
     },
   ],
@@ -66,40 +66,40 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: "!== ''" },
+          data: { comparison: "=== ''" },
         },
       ],
-      output: 'const str = "hello"; if (str !== \'\') {}',
+      output: 'const str = "hello"; if (str === \'\') {}',
     },
     {
       code: 'const num = 42; if (!num) {}',
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: '!== 0' },
+          data: { comparison: '=== 0' },
         },
       ],
-      output: 'const num = 42; if (num !== 0) {}',
+      output: 'const num = 42; if (num === 0) {}',
     },
     {
       code: 'const val = null; if (!val) {}',
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: '!== null' },
+          data: { comparison: '=== null' },
         },
       ],
-      output: 'const val = null; if (val !== null) {}',
+      output: 'const val = null; if (val === null) {}',
     },
     {
       code: 'const val = undefined; if (!val) {}',
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: '!== undefined' },
+          data: { comparison: '=== undefined' },
         },
       ],
-      output: 'const val = undefined; if (val !== undefined) {}',
+      output: 'const val = undefined; if (val === undefined) {}',
     },
     {
       code: 'const obj = { active: true }; if (!obj.active) {}',
@@ -115,7 +115,7 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
     {
       code: 'const a = 1, b = 2; if (!(a + b)) {}',
       errors: [{ messageId: 'preferExplicitCheck' }],
-      output: 'const a = 1, b = 2; if ((a + b) !== 0) {}',
+      output: 'const a = 1, b = 2; if ((a + b) === 0) {}',
       name: 'adds parentheses for binary expressions',
     },
     {
@@ -123,10 +123,10 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: '!== null' },
+          data: { comparison: '=== null' },
         },
       ],
-      output: 'const value: string | null = "hello"; if (value !== null) {}',
+      output: 'const value: string | null = "hello"; if (value === null) {}',
       name: 'optional type with null',
     },
     {
@@ -134,11 +134,11 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: '!== undefined' },
+          data: { comparison: '=== undefined' },
         },
       ],
       output:
-        'const value: number | undefined = 42; if (value !== undefined) {}',
+        'const value: number | undefined = 42; if (value === undefined) {}',
       name: 'optional type with undefined',
     },
     {
@@ -146,11 +146,11 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
       errors: [
         {
           messageId: 'preferExplicitCheck',
-          data: { comparison: '!= null' },
+          data: { comparison: '== null' },
         },
       ],
       output:
-        'const value: string | null | undefined = "hello"; if (value != null) {}',
+        'const value: string | null | undefined = "hello"; if (value == null) {}',
       name: 'optional type with null and undefined',
     },
   ],

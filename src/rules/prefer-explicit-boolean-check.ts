@@ -25,18 +25,18 @@ function getExplicitComparison(type: ts.Type): string | null {
 
     // Optional types: Something | null -> check for null
     if (hasNull && hasOtherTypes && hasUndefined === false) {
-      return '!== null';
+      return '=== null';
     }
 
     // Optional types: Something | undefined -> check for undefined
     if (hasUndefined && hasOtherTypes && hasNull === false) {
-      return '!== undefined';
+      return '=== undefined';
     }
 
     // Optional types: Something | null | undefined -> check for null OR undefined
-    // We use != null which checks both null and undefined
+    // We use == null which checks both null and undefined
     if (hasNull && hasUndefined && hasOtherTypes) {
-      return '!= null';
+      return '== null';
     }
 
     // Only auto-fix if all union members have the same comparison
@@ -61,12 +61,12 @@ function getSingleTypeComparison(type: ts.Type): string | null {
 
   // Null
   if (type.flags & ts.TypeFlags.Null) {
-    return '!== null';
+    return '=== null';
   }
 
   // Undefined
   if (type.flags & ts.TypeFlags.Undefined) {
-    return '!== undefined';
+    return '=== undefined';
   }
 
   // String
@@ -74,7 +74,7 @@ function getSingleTypeComparison(type: ts.Type): string | null {
     type.flags & ts.TypeFlags.String ||
     type.flags & ts.TypeFlags.StringLiteral
   ) {
-    return "!== ''";
+    return "=== ''";
   }
 
   // Number
@@ -82,7 +82,7 @@ function getSingleTypeComparison(type: ts.Type): string | null {
     type.flags & ts.TypeFlags.Number ||
     type.flags & ts.TypeFlags.NumberLiteral
   ) {
-    return '!== 0';
+    return '=== 0';
   }
 
   // No safe comparison for other types
@@ -130,7 +130,7 @@ export const rule: ESLintUtils.RuleModule<
       services = null;
     }
 
-    const hasTypeInfo = services?.program !== null;
+    const hasTypeInfo = services?.program != null;
     const checker =
       hasTypeInfo && services && services.program
         ? services.program.getTypeChecker()

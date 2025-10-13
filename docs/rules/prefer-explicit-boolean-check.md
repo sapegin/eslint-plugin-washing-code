@@ -11,10 +11,10 @@ This rule enforces explicit comparisons instead of using the negation operator (
 The rule uses TypeScript type information to determine the appropriate comparison:
 
 - `boolean` → `=== false`
-- `null` → `!== null`
-- `undefined` → `!== undefined`
-- `string` → `!== ''`
-- `number` → `!== 0`
+- `null` → `=== null`
+- `undefined` → `=== undefined`
+- `string` → `=== ''`
+- `number` → `=== 0`
 
 Examples of **incorrect** code:
 
@@ -48,15 +48,15 @@ if (yep === false) {
 }
 
 const str = 'hello';
-if (str !== '') {
+if (str === '') {
 }
 
 const num = 42;
-if (num !== 0) {
+if (num === 0) {
 }
 
 const val = null;
-if (val !== null) {
+if (val === null) {
 }
 
 const obj = { active: true };
