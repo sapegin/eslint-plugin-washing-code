@@ -46,7 +46,7 @@ export default [
 ✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Rule | Description | Recommended | Fixable |
+| Rule | Description | ✅ | 🔧 |
 | --- | --- | --- | --- |
 | [prefer-explicit-boolean-check](docs/rules/prefer-explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
 
