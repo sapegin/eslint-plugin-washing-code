@@ -43,7 +43,7 @@ export default [
 
 ## Rules
 
-✅ Set in the `recommended` configuration\
+✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
 | Rule | Description | Recommended | Fixable |
