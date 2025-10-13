@@ -1,4 +1,4 @@
-# Grim Wrapper
+# eslint-plugin-washing-code
 
 [![npm](https://img.shields.io/npm/v/eslint-plugin-washing-code.svg)](https://www.npmjs.com/package/eslint-plugin-washing-code) [![Node.js CI status](https://github.com/sapegin/eslint-plugin-washing-code/workflows/Node.js%20CI/badge.svg)](https://github.com/sapegin/eslint-plugin-washing-code/actions)
 
@@ -6,9 +6,36 @@ ESLint rules inspired by [Washing your code book](https://sapegin.me/book/).
 
 [![Washing your code. A book on clean code for frontend developers](https://sapegin.me/images/washing-code-github.jpg)](https://sapegin.me/book/)
 
-## Getting started
+## Installation
 
-TODO
+```bash
+npm install --save-dev eslint-plugin-washing-code
+```
+
+## Usage
+
+Add `washing-code` to your ESLint configuration:
+
+```js
+import washingCode from 'eslint-plugin-washing-code';
+
+export default [
+  {
+    plugins: {
+      'washing-code': washingCode
+    },
+    rules: {
+      'washing-code/no-unnecessary-template-literal': 'error'
+    }
+  }
+];
+```
+
+## Rules
+
+| Rule | Description | Fixable |
+| --- | --- | --- |
+| [no-unnecessary-template-literal](docs/rules/no-unnecessary-template-literal.md) | Disallow template literals without interpolation | ✅ |
 
 ## Motivation
 
