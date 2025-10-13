@@ -1,4 +1,5 @@
 import noUnnecessaryTemplateLiteral from './rules/no-unnecessary-template-literal.js';
+import preferExplicitBooleanCheck from './rules/prefer-explicit-boolean-check.js';
 
 const plugin = {
   meta: {
@@ -7,6 +8,7 @@ const plugin = {
   },
   rules: {
     'no-unnecessary-template-literal': noUnnecessaryTemplateLiteral,
+    'prefer-explicit-boolean-check': preferExplicitBooleanCheck,
   },
 };
 
