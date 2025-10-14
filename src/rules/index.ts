@@ -1,5 +1,5 @@
-import { rule as preferExplicitBooleanCheckRule } from './prefer-explicit-boolean-check.js';
+import { rule as preferExplicitBooleanCheckRule } from './explicit-boolean-check.js';
 
 export const rules = {
-  'prefer-explicit-boolean-check': preferExplicitBooleanCheckRule,
+  'explicit-boolean-check': preferExplicitBooleanCheckRule,
 };

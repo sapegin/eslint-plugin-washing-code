@@ -23,8 +23,8 @@ function getExplicitComparison(type: ts.Type): string | null {
       }
     }
 
-    // If union contains null/undefined, prioritize checking for them
-    // Regardless of how many other types are in the union
+    // If union contains null/undefined, prioritize checking for them,
+    // regardless of how many other types are in the union
     if (hasNull && hasOtherTypes && hasUndefined === false) {
       return '=== null';
     }

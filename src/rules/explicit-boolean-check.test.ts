@@ -1,6 +1,6 @@
 import { RuleTester } from '@typescript-eslint/rule-tester';
 import path from 'node:path';
-import { rule } from './prefer-explicit-boolean-check.js';
+import { rule } from './explicit-boolean-check.js';
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -17,7 +17,7 @@ const ruleTester = new RuleTester({
   },
 });
 
-ruleTester.run('prefer-explicit-boolean-check', rule, {
+ruleTester.run('explicit-boolean-check', rule, {
   valid: [
     {
       code: 'const yep = true; if (yep === false) {}',
@@ -184,7 +184,7 @@ ruleTester.run('prefer-explicit-boolean-check', rule, {
 const ruleTesterNoTypeInfo = new RuleTester();
 
 ruleTesterNoTypeInfo.run(
-  'prefer-explicit-boolean-check (without type info)',
+  'explicit-boolean-check (without type info)',
   rule,
   {
     valid: [

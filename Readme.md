@@ -35,7 +35,26 @@ export default [
       'washing-code': washingCode
     },
     rules: {
-      'washing-code/prefer-explicit-boolean-check': 'error'
+      'washing-code/explicit-boolean-check': 'error'
+    }
+  }
+];
+```
+
+### Configuration for TypeScript projects
+
+Many rules in this plugin work best with TypeScript type information, which enables safe automatic fixing in more cases.
+
+Add something like this to your ESLint config:
+
+```js
+export default [
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
+      }
     }
   }
 ];
@@ -48,7 +67,7 @@ export default [
 
 | Rule | Description | ✅ | 🔧 |
 | --- | --- | --- | --- |
-| [prefer-explicit-boolean-check](docs/rules/prefer-explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
+| [explicit-boolean-check](docs/rules/explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
 
 ## Motivation
 
