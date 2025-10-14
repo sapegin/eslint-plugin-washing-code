@@ -35,6 +35,8 @@ ruleTester.run('explicit-boolean-check', rule, {
       code: 'const val = undefined; if (val === undefined) {}',
     },
     {
+      // I prefer Boolean(yep) but it's not a concern of this rule, so we keep
+      // !! as is
       code: 'const yep = true; const nope = !!yep;',
       name: 'double negation is explicit coercion',
     },
@@ -183,30 +185,26 @@ ruleTester.run('explicit-boolean-check', rule, {
 // Test without type information
 const ruleTesterNoTypeInfo = new RuleTester();
 
-ruleTesterNoTypeInfo.run(
-  'explicit-boolean-check (without type info)',
-  rule,
-  {
-    valid: [
-      {
-        code: 'const yep = true; if (yep === false) {}',
-      },
-      {
-        code: 'const yep = true; const nope = !!yep;',
-        name: 'double negation is explicit coercion',
-      },
-    ],
-    invalid: [
-      {
-        code: 'const yep = true; if (!yep) {}',
-        errors: [{ messageId: 'preferExplicitCheckNoFix' }],
-        output: null,
-      },
-      {
-        code: 'const obj = { active: true }; if (!obj.active) {}',
-        errors: [{ messageId: 'preferExplicitCheckNoFix' }],
-        output: null,
-      },
-    ],
-  }
-);
+ruleTesterNoTypeInfo.run('explicit-boolean-check (without type info)', rule, {
+  valid: [
+    {
+      code: 'const yep = true; if (yep === false) {}',
+    },
+    {
+      code: 'const yep = true; const nope = !!yep;',
+      name: 'double negation is explicit coercion',
+    },
+  ],
+  invalid: [
+    {
+      code: 'const yep = true; if (!yep) {}',
+      errors: [{ messageId: 'preferExplicitCheckNoFix' }],
+      output: null,
+    },
+    {
+      code: 'const obj = { active: true }; if (!obj.active) {}',
+      errors: [{ messageId: 'preferExplicitCheckNoFix' }],
+      output: null,
+    },
+  ],
+});
