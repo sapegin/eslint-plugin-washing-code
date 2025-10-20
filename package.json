@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-washing-code",
   "description": "ESLint rules inspired by Washing your code book",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "sideEffects": false,
   "scripts": {
     "pretest": "npm run lint",
@@ -27,6 +27,16 @@
   "bugs": {
     "url": "https://github.com/sapegin/eslint-plugin-washing-code/issues"
   },
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin",
+    "linter",
+    "lint",
+    "clean code",
+    "lint rule",
+    "eslint rule"
+  ],
   "license": "MIT",
   "type": "module",
   "exports": "./out/index.js",
