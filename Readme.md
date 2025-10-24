@@ -52,7 +52,7 @@ export default [
   {
     languageOptions: {
       parserOptions: {
-        projectService: true,
+        projectService: true
       }
     }
   }
@@ -67,6 +67,7 @@ export default [
 | Rule | Description | ✅ | 🔧 |
 | --- | --- | --- | --- |
 | [explicit-boolean-check](docs/rules/explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
+| [prefer-includes-conditions](docs/rules/prefer-includes-conditions.md) | Prefer `.includes()` over multiple equality comparisons | ✅ | 🔧 |
 
 ## Motivation
 
