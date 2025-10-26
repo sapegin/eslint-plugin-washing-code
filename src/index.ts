@@ -35,6 +35,7 @@ const plugin = {
       rules: {
         'washing-code/explicit-boolean-check': 'error',
         'washing-code/prefer-includes-conditions': 'error',
+        'washing-code/prefer-function-optional-chain': 'error',
       },
     },
   },
