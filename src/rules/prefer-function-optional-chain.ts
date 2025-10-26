@@ -88,12 +88,12 @@ export const rule: ESLintUtils.RuleModule<'preferOptionalChain'> = {
             const calleeText = sourceCode.getText(expression.callee);
             const argsText =
               expression.arguments.length > 0
-                ? sourceCode
-                    .getText()
-                    .slice(
+                ? sourceCode.getText({
+                    range: [
                       expression.arguments[0].range[0],
                       expression.arguments.at(-1)?.range[1]
-                    )
+                    ]
+                  })
                 : '';
 
             return fixer.replaceText(node, `${calleeText}?.(${argsText});`);
