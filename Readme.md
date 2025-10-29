@@ -67,6 +67,7 @@ export default [
 | Rule | Description | ✅ | 🔧 |
 | --- | --- | --- | --- |
 | [explicit-boolean-check](docs/rules/explicit-boolean-check.md) | Require explicit comparison instead of negation operator | ✅ | 🔧 |
+| [prefer-function-optional-chain](docs/rules/prefer-function-optional-chain.md) | Prefer optional chaining over conditional function calls | ✅ | 🔧 |
 | [prefer-includes-conditions](docs/rules/prefer-includes-conditions.md) | Prefer `.includes()` over multiple equality comparisons | ✅ | 🔧 |
 
 ## Motivation
